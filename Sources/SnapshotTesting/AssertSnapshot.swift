@@ -200,7 +200,7 @@ public func verifySnapshot<Value, Format>(
 
       let testName = sanitizePathComponent(testName)
       let snapshotFileUrl = snapshotDirectoryUrl
-        .appendingPathComponent("\(testName).\(identifier)")
+        .appendingPathComponent("\(testName)_\(identifier)")
         .appendingPathExtension(snapshotting.pathExtension ?? "")
       let fileManager = FileManager.default
       try fileManager.createDirectory(at: snapshotDirectoryUrl, withIntermediateDirectories: true)
@@ -337,7 +337,7 @@ private var counterMap: [URL: Int] = [:]
 
 func sanitizePathComponent(_ string: String) -> String {
   return string
-    .replacingOccurrences(of: "\\W+", with: "-", options: .regularExpression)
+    .replacingOccurrences(of: "[^\\w@]+", with: "-", options: .regularExpression)
     .replacingOccurrences(of: "^-|-$", with: "", options: .regularExpression)
 }
 
